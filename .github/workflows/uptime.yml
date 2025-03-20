@@ -15,7 +15,6 @@ jobs:
           - "https://new.toilet.football"
           - "https://winokan.com"
           - "https://foosball.winokan.com"
-          - "https://fragalysis.diamond.ac.uk"
     
     name: Check ${{ matrix.url }}  # This makes each job name unique
 
