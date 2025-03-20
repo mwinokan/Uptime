@@ -1,0 +1,38 @@
+name: Uptime Check
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # Runs every day at 12:00 UTC
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  check_urls:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check URLs
+        run: |
+          urls=(
+            "https://toilet.football"
+            "https://new.toilet.football"
+            "https://winokan.com"
+            "https://foosball.winokan.com"
+            "https://fragalysis.diamond.ac.uk"
+            "https://fragalysis.xchem.diamond.ac.uk"
+          )
+
+          for url in "${urls[@]}"; do
+            echo "Checking $url..."
+            status_code=$(curl -o /dev/null -s -w "%{http_code}" "$url")
+            if [[ "$status_code" -ne 200 ]]; then
+              echo "::error title=URL Check Failed::URL $url returned status $status_code"
+              exit 1
+            fi
+          done
+
+      - name: Success Message
+        if: success()
+        run: echo "All URLs returned 200 OK!"
