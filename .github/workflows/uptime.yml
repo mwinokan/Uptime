@@ -12,7 +12,7 @@ jobs:
       matrix:
         url:
           - "https://toilet.football"
-          # - "https://new.toilet.football"
+          - "https://new.toilet.football"
           - "https://winokan.com"
           # - "https://foosball.winokan.com"
     
